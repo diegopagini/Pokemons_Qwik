@@ -69,3 +69,20 @@ npm run build # or `yarn build`
 ---
 
 # Aplication
+
+## DocumentHead
+
+```tsx
+/**
+ * Meta tags for each page.
+ */
+export const head: DocumentHead = {
+	title: 'Welcome to Qwik',
+	meta: [
+		{
+			name: 'description',
+			content: 'Qwik site description',
+		},
+	],
+};
+```

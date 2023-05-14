@@ -13,10 +13,7 @@ export default component$(() => {
 						href='/'
 						title='qwik'
 					>
-						<QwikLogo
-							height={50}
-							width={143}
-						/>
+						<QwikLogo height={50} />
 					</a>
 				</div>
 				<ul>
