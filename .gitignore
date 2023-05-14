@@ -13,6 +13,8 @@ node_modules
 .mf
 .rollup.cache
 tsconfig.tsbuildinfo
+yarn.lock
+package-json.lock
 
 # Logs
 logs
