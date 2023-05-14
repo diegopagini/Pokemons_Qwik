@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.builder.io/)
@@ -64,5 +66,6 @@ The production build will generate client and server modules by running both cli
 npm run build # or `yarn build`
 ```
 
+---
 
-
+# Aplication
