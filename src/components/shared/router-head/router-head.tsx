@@ -1,5 +1,4 @@
 /** @format */
-
 import { component$ } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
 
