@@ -213,3 +213,16 @@ export const PokemonImage = component$(({ id, size = 200, backImage = false }: P
 	);
 });
 ```
+
+## Routes
+
+```
+📘routes
+	📘pokemons
+		📘list-client
+			📃index.tsx
+		📘list-ssr
+			📃index.tsx
+	📃index.tsx
+	📃layout.tsx
+```
