@@ -2,14 +2,14 @@
 import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 
 interface Props {
-	backImage: boolean;
+	backImage?: boolean;
 	id: number;
-	isVisible: boolean;
+	isVisible?: boolean;
 	size?: number;
 }
 
 export const PokemonImage = component$(
-	({ id, size = 200, backImage = false, isVisible = false }: Props) => {
+	({ id, size = 200, backImage = false, isVisible = true }: Props) => {
 		const imageLoaded = useSignal<boolean>(false);
 
 		/** useTask$ for secondary effects */

@@ -6,7 +6,7 @@ import { PokemonImage } from '~/components/pokemons/pokemon-image';
 export default component$(() => {
 	const pokemonId = useSignal<number>(1); // For primitives: booleans, strings, numbers, etc... For objects or arrays `useStore()`
 	const showBackImage = useSignal<boolean>(false);
-	const isVisible = useSignal<boolean>(false);
+	const isVisible = useSignal<boolean>(true);
 	const nav = useNavigate();
 
 	const changePokemonId = $((value: number) => {
@@ -20,7 +20,7 @@ export default component$(() => {
 	});
 
 	const goToPokemon = $(() => {
-		nav(`/pokemons/${pokemonId.value}`);
+		nav(`/pokemon/${pokemonId.value}`);
 	});
 
 	return (

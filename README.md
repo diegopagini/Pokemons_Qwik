@@ -163,6 +163,7 @@ routes/
 	    		└──index.tsx
 			└──list-ssr
 					└──index.tsx
+	└── pokemon/
 			└──[id] /** dynamic route */
 					└──index.tsx
 ```
@@ -227,4 +228,20 @@ const goToPokemon = $(() => {
 		isVisible={isVisible.value}
 	/>
 </div>;
+```
+
+### useLocation
+
+```tsx
+export default component$(() => {
+	const location = useLocation();
+	const { id } = location.params;
+
+	return (
+		<>
+			<span class='text-5xl'>Pokemon: {id}</span>
+			<PokemonImage id={+id} />
+		</>
+	);
+});
 ```
