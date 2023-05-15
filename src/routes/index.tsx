@@ -3,9 +3,11 @@ import { $, component$, useSignal } from '@builder.io/qwik';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
 
 import type { DocumentHead } from '@builder.io/qwik-city';
+
 export default component$(() => {
 	const pokemonId = useSignal<number>(1); // For primitives: booleans, strings, numbers, etc... For objects or arrays `useStore()`
 	const showBackImage = useSignal<boolean>(false);
+	const isVisible = useSignal<boolean>(false);
 
 	const changePokemonId = $((value: number) => {
 		// Because this function is going to be called in a lazy load way it needs to be serialized with `$()`
@@ -26,6 +28,7 @@ export default component$(() => {
 			<PokemonImage
 				id={pokemonId.value}
 				backImage={showBackImage.value}
+				isVisible={isVisible.value}
 			/>
 
 			<div class='mr-2'>
@@ -44,9 +47,16 @@ export default component$(() => {
 
 				<button
 					onClick$={() => toggleImage()}
-					class='btn btn-primary'
+					class='btn btn-primary mr-2'
 				>
 					Voltear
+				</button>
+
+				<button
+					onClick$={() => (isVisible.value = !isVisible.value)}
+					class='btn btn-primary'
+				>
+					Revelar
 				</button>
 			</div>
 		</>
