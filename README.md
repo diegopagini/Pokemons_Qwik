@@ -216,6 +216,8 @@ export const PokemonImage = component$(({ id, size = 200, backImage = false }: P
 
 ## Routes
 
+[https://qwik.builder.io/docs/advanced/routing/]
+
 ```
 📘routes
 	📘pokemons
@@ -223,6 +225,9 @@ export const PokemonImage = component$(({ id, size = 200, backImage = false }: P
 			📃index.tsx
 		📘list-ssr
 			📃index.tsx
+		📘pokemon /** For dynamics routes */
+			📘[id]
+				📃index.tsx
 	📃index.tsx
 	📃layout.tsx
 ```
