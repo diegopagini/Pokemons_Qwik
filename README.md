@@ -163,9 +163,8 @@ routes/
 	    		└──index.tsx
 			└──list-ssr
 					└──index.tsx
-			└──pokemon
-					 └──[id]
-							  └──index.tsx
+			└──[id] /** dynamic route */
+					└──index.tsx
 ```
 
 ## Link
@@ -199,4 +198,33 @@ export default component$(() => {
 		</header>
 	);
 });
+```
+
+### Link
+
+```tsx
+<Link href={`/pokemons/${pokemonId.value}/`}>
+	<PokemonImage
+		id={pokemonId.value}
+		backImage={showBackImage.value}
+		isVisible={isVisible.value}
+	/>
+</Link>
+```
+
+### useNavigate
+
+```tsx
+const nav = useNavigate();
+const goToPokemon = $(() => {
+	nav(`/pokemons/${pokemonId.value}`);
+});
+
+<div onClick$={() => goToPokemon()}>
+	<PokemonImage
+		id={pokemonId.value}
+		backImage={showBackImage.value}
+		isVisible={isVisible.value}
+	/>
+</div>;
 ```

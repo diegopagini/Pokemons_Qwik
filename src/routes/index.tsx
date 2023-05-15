@@ -1,13 +1,13 @@
 /** @format */
 import { $, component$, useSignal } from '@builder.io/qwik';
+import { DocumentHead, useNavigate } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
-
-import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
 	const pokemonId = useSignal<number>(1); // For primitives: booleans, strings, numbers, etc... For objects or arrays `useStore()`
 	const showBackImage = useSignal<boolean>(false);
 	const isVisible = useSignal<boolean>(false);
+	const nav = useNavigate();
 
 	const changePokemonId = $((value: number) => {
 		// Because this function is going to be called in a lazy load way it needs to be serialized with `$()`
@@ -19,17 +19,23 @@ export default component$(() => {
 		showBackImage.value = !showBackImage.value;
 	});
 
+	const goToPokemon = $(() => {
+		nav(`/pokemons/${pokemonId.value}`);
+	});
+
 	return (
 		<>
 			<span class='text-2xl'>Buscador simple</span>
 			<span class='text-9xl'>{pokemonId}</span>
 			{/** Qwik knows when is a singal and there is no need to `call it` like pokemonId() */}
 
-			<PokemonImage
-				id={pokemonId.value}
-				backImage={showBackImage.value}
-				isVisible={isVisible.value}
-			/>
+			<div onClick$={() => goToPokemon()}>
+				<PokemonImage
+					id={pokemonId.value}
+					backImage={showBackImage.value}
+					isVisible={isVisible.value}
+				/>
+			</div>
 
 			<div class='mr-2'>
 				<button
