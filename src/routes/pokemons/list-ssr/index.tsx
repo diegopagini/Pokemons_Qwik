@@ -1,10 +1,12 @@
 /** @format */
 import { component$, useComputed$ } from '@builder.io/qwik';
-import { DocumentHead, Link, routeLoader$, useLocation } from '@builder.io/qwik-city';
+import { Link, routeLoader$, useLocation } from '@builder.io/qwik-city';
+import { getSmallPokemons } from '~/helpers';
 
-import type { BasicPokemon, PokemonListReponse } from '~/interfaces/pokemon-list.response';
+import type { DocumentHead } from '@builder.io/qwik-city';
+import type { SmallPokemon } from '~/interfaces';
 
-export const usePokemonList = routeLoader$<BasicPokemon[]>(
+export const usePokemonList = routeLoader$<SmallPokemon[]>(
 	async ({ query, redirect, pathname }) => {
 		/**
 		 * `redirect` is a function inside the event used to redirect.
@@ -13,9 +15,7 @@ export const usePokemonList = routeLoader$<BasicPokemon[]>(
 		const offset = Number(query.get('offset') || '0');
 		if (offset < 0 || isNaN(offset)) redirect(301, pathname);
 
-		const resp = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`);
-		const data = (await resp.json()) as PokemonListReponse;
-		return data.results;
+		return await getSmallPokemons(offset);
 	}
 );
 
@@ -53,9 +53,9 @@ export default component$(() => {
 			</div>
 
 			<div class='grid grid-cols-6 mt-5'>
-				{pokemonResp.value.map(({ name }) => (
+				{pokemonResp.value.map(({ name, id }) => (
 					<div
-						key={name}
+						key={id}
 						class='m-5 flex flex-col justify-center items-center'
 					>
 						<span class='capitalize'> {name}</span>
