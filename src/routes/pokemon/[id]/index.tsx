@@ -1,7 +1,9 @@
 /** @format */
-import { component$, Signal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
+
+import type { Signal } from '@builder.io/qwik';
 
 /**
  * routeLoader$ is going to be executed from the server side. Is used to prevent navigation with incorrect params.

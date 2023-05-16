@@ -1,11 +1,11 @@
 /** @format */
 import { component$, useComputed$ } from '@builder.io/qwik';
 import { Link, routeLoader$, useLocation } from '@builder.io/qwik-city';
+import { PokemonImage } from '~/components/pokemons/pokemon-image';
 import { getSmallPokemons } from '~/helpers';
 
 import type { DocumentHead } from '@builder.io/qwik-city';
 import type { SmallPokemon } from '~/interfaces';
-
 export const usePokemonList = routeLoader$<SmallPokemon[]>(
 	async ({ query, redirect, pathname }) => {
 		/**
@@ -59,6 +59,7 @@ export default component$(() => {
 						class='m-5 flex flex-col justify-center items-center'
 					>
 						<span class='capitalize'> {name}</span>
+						<PokemonImage id={+id} />
 					</div>
 				))}
 			</div>

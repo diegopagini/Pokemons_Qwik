@@ -1,7 +1,9 @@
 /** @format */
 import { $, component$, useSignal } from '@builder.io/qwik';
-import { DocumentHead, useNavigate } from '@builder.io/qwik-city';
+import { useNavigate } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
+
+import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
 	const pokemonId = useSignal<number>(1); // For primitives: booleans, strings, numbers, etc... For objects or arrays `useStore()`
