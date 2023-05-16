@@ -422,3 +422,38 @@ useTask$(async ({ track }) => {
 	track(() => pokemonState.currentPage);
 });
 ```
+
+### infiniteScroll with useOnDocument
+
+```tsx
+const pokemonState = useStore<PokemonState>({
+	currentPage: 0,
+	isLoading: false,
+	pokemons: [],
+});
+
+// This runs in the server and in the client.
+useTask$(async ({ track }) => {
+	// This is executed when the component is created.
+	const pokemons = await getSmallPokemons(pokemonState.currentPage * 10, 30);
+	pokemonState.pokemons = [...pokemonState.pokemons, ...pokemons];
+	pokemonState.isLoading = false;
+
+	// With `track` useVisibleTask is going to be called each time the given parameter (pokemonState.currentPage) change
+	track(() => pokemonState.currentPage);
+});
+
+// To create listenners
+useOnDocument(
+	'scroll',
+	$(() => {
+		const maxScroll = document.body.scrollHeight;
+		const currentScroll = window.scrollY + window.innerHeight;
+
+		if (currentScroll + 200 >= maxScroll && !pokemonState.isLoading) {
+			pokemonState.isLoading = true;
+			pokemonState.currentPage++;
+		}
+	})
+);
+```

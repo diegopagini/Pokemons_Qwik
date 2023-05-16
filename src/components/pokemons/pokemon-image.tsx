@@ -1,5 +1,5 @@
 /** @format */
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, useComputed$, useSignal, useTask$ } from '@builder.io/qwik';
 
 interface Props {
 	backImage?: boolean;
@@ -19,6 +19,12 @@ export const PokemonImage = component$(
 			imageLoaded.value = false;
 		});
 
+		const imageUrl = useComputed$(() => {
+			return backImage
+				? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`
+				: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+		});
+
 		return (
 			<div
 				class='flex items-center justify-center'
@@ -32,9 +38,7 @@ export const PokemonImage = component$(
 
 				<img
 					alt='Pokemon Sprite'
-					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-						backImage ? 'back/' : ''
-					}${id}.png`}
+					src={imageUrl.value}
 					height=''
 					width=''
 					style={{
