@@ -1,5 +1,3 @@
-<!-- @format -->
-
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.builder.io/)
