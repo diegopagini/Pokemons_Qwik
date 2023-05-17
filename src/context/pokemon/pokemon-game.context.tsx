@@ -2,9 +2,9 @@
 import { createContextId } from '@builder.io/qwik';
 
 export interface PokemonGameState {
+	isPokemonVisible: boolean;
 	pokemonId: number;
 	showBackImage: boolean;
-	isPokemonVisible: boolean;
 }
 
 // The given ID must be unique in the entire application.
