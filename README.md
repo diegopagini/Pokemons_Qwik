@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.builder.io/)
@@ -454,4 +456,22 @@ useOnDocument(
 		}
 	})
 );
+```
+
+## ContextApi [https://qwik.builder.io/docs/components/context/#context]
+
+### context
+
+```tsx
+/** @format */
+import { createContextId } from '@builder.io/qwik';
+
+export interface PokemonGameState {
+	pokemonId: number;
+	showBackImage: boolean;
+	isPokemonVisible: boolean;
+}
+
+// The given ID must be unique in the entire application.
+export const PokemonGameContext = createContextId<PokemonGameState>('pokmeon.game-context');
 ```
