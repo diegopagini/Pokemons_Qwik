@@ -624,3 +624,61 @@ export const useCounter = (initialValue: number) => {
 	};
 };
 ```
+
+## Slots
+
+### modal
+
+```tsx
+export const Modal = component$(() => {
+	useStylesScoped$(ModalStyles);
+
+	return (
+		<div
+			role='alert'
+			class='modal-background'
+		>
+			<div class='modal-content'>
+				<div class='mt-3 text-center'>
+					<h3 class='modal-title'>
+						<Slot name='title' />{' '}
+						{/** the name property is nedeed when we need more that one slot */}
+					</h3>
+
+					<div class='mt-2 px-7 py-3'>
+						<div class='modal-content-text'>
+							<Slot name='content' />{' '}
+							{/** Slot is like ng-content in Angular. To show some content inside */}
+						</div>
+					</div>
+
+					{/* Botton */}
+					<div class='items-center px-4 py-3'>
+						<button
+							id='ok-btn'
+							class='modal-button'
+						>
+							Cerrar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+});
+```
+
+### index.tsx
+
+```tsx
+export default component$(() => {
+	return (
+		<>
+			<Modal>
+				<div q:slot='title'>Nombre del Pokemon</div>
+				<span q:slot='content'>Hola Mundo</span>
+			</Modal>
+		</>
+	);
+});
+```

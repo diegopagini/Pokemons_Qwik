@@ -3,7 +3,7 @@ import { component$, useComputed$, useSignal, useTask$ } from '@builder.io/qwik'
 
 interface Props {
 	backImage?: boolean;
-	id: number;
+	id: string;
 	isVisible?: boolean;
 	size?: number;
 }
@@ -20,6 +20,8 @@ export const PokemonImage = component$(
 		});
 
 		const imageUrl = useComputed$(() => {
+			if (id === '') return '';
+
 			return backImage
 				? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`
 				: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;

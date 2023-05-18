@@ -25,7 +25,7 @@ export default component$(() => {
 		<>
 			<span class='text-5xl'>Pokemon: {pokemonId}</span>
 			<PokemonImage
-				id={pokemonId.value}
+				id={`${pokemonId.value}`}
 				isVisible={isPokemonVisible.value}
 				backImage={showBackImage.value}
 			/>

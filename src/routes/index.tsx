@@ -30,7 +30,7 @@ export default component$(() => {
 
 			<div onClick$={() => goToPokemon(pokemonId.value)}>
 				<PokemonImage
-					id={pokemonId.value}
+					id={`${pokemonId.value}`}
 					backImage={showBackImage.value}
 					isVisible={isPokemonVisible.value}
 				/>

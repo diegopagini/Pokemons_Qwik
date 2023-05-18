@@ -58,7 +58,7 @@ export default component$(() => {
 						class='m-5 flex flex-col justify-center items-center'
 					>
 						<span class='capitalize'> {name}</span>
-						<PokemonImage id={+id} />
+						<PokemonImage id={id} />
 					</div>
 				))}
 			</div>
