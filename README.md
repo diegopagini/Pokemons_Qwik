@@ -682,3 +682,15 @@ export default component$(() => {
 	);
 });
 ```
+
+### Environment variables
+
+```typescript
+const configuration = new Configuration({
+	apiKey: import.meta.env.PUBLIC_OPEN_AI_KEY, // To use environment variables.
+});
+```
+
+```
+PUBLIC_OPEN_AI_KEY=test
+```
