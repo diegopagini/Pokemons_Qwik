@@ -1,68 +1,64 @@
 /** @format */
-import { $, component$, useContext } from '@builder.io/qwik';
+import { $, component$ } from '@builder.io/qwik';
 import { useNavigate } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
-import { PokemonGameContext } from '~/context';
+import { usePokemonGame } from '~/hooks';
 
 import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
-	/** useContext  */
-	const pokemonGame = useContext(PokemonGameContext);
+	const {
+		isPokemonVisible,
+		nextPokemon,
+		pokemonId,
+		previousPokemon,
+		showBackImage,
+		toggleImage,
+		toggleVisible,
+	} = usePokemonGame();
 
 	const nav = useNavigate();
 
-	const changePokemonId = $((value: number) => {
-		// Because this function is going to be called in a lazy load way it needs to be serialized with `$()`
-		if (pokemonGame.pokemonId + value <= 0) return;
-		pokemonGame.pokemonId += value;
-	});
-
-	const toggleImage = $(() => {
-		pokemonGame.showBackImage = !pokemonGame.showBackImage;
-	});
-
-	const goToPokemon = $(() => {
-		nav(`/pokemon/${pokemonGame.pokemonId}`);
+	const goToPokemon = $((id: number) => {
+		nav(`/pokemon/${id}`);
 	});
 
 	return (
 		<>
 			<span class='text-2xl'>Buscador simple</span>
-			<span class='text-9xl'>{pokemonGame.pokemonId}</span>
-			{/** Qwik knows when is a singal and there is no need to `call it` like pokemonId() */}
+			<span class='text-9xl'>{pokemonId.value}</span>
 
-			<div onClick$={() => goToPokemon()}>
+			<div onClick$={() => goToPokemon(pokemonId.value)}>
 				<PokemonImage
-					id={pokemonGame.pokemonId}
-					backImage={pokemonGame.showBackImage}
-					isVisible={pokemonGame.isPokemonVisible}
+					id={pokemonId.value}
+					backImage={showBackImage.value}
+					isVisible={isPokemonVisible.value}
 				/>
 			</div>
 
 			<div class='mr-2'>
 				<button
-					onClick$={() => changePokemonId(-1)}
+					onClick$={previousPokemon}
 					class='btn btn-primary mr-2'
 				>
 					Anterior
 				</button>
 				<button
-					onClick$={() => changePokemonId(+1)}
+					onClick$={nextPokemon}
 					class='btn btn-primary mr-2'
 				>
 					Siguiente
 				</button>
 
 				<button
-					onClick$={() => toggleImage()}
+					onClick$={toggleImage}
 					class='btn btn-primary mr-2'
 				>
 					Voltear
 				</button>
 
 				<button
-					onClick$={() => (pokemonGame.isPokemonVisible = !pokemonGame.isPokemonVisible)}
+					onClick$={toggleVisible}
 					class='btn btn-primary'
 				>
 					Revelar

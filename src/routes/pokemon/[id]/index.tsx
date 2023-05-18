@@ -1,8 +1,8 @@
 /** @format */
-import { component$, useContext } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
-import { PokemonGameContext } from '~/context';
+import { usePokemonGame } from '~/hooks';
 
 import type { Signal } from '@builder.io/qwik';
 /**
@@ -17,18 +17,33 @@ export const usePokemonId = routeLoader$<number>(({ params, redirect }) => {
 });
 
 export default component$(() => {
-	const pokemonId: Signal<number> = usePokemonId();
+	const { isPokemonVisible, showBackImage, toggleImage, toggleVisible } = usePokemonGame();
 
-	const pokemonGame = useContext(PokemonGameContext);
+	const pokemonId: Signal<number> = usePokemonId();
 
 	return (
 		<>
 			<span class='text-5xl'>Pokemon: {pokemonId}</span>
 			<PokemonImage
 				id={pokemonId.value}
-				isVisible={pokemonGame.isPokemonVisible}
-				backImage={pokemonGame.showBackImage}
+				isVisible={isPokemonVisible.value}
+				backImage={showBackImage.value}
 			/>
+
+			<div class='mt-2'>
+				<button
+					onClick$={toggleImage}
+					class='btn btn-primary mr-2'
+				>
+					Voltear
+				</button>
+				<button
+					onClick$={toggleVisible}
+					class='btn btn-primary'
+				>
+					Revelar
+				</button>
+			</div>
 		</>
 	);
 });
