@@ -1,79 +1,60 @@
 /** @format */
-import { $, component$, useComputed$, useStore, useStylesScoped$ } from '@builder.io/qwik';
+import { component$, useStylesScoped$ } from '@builder.io/qwik';
+import { Form, routeAction$ } from '@builder.io/qwik-city';
 
 import styles from './login.css?inline';
+
+export const useLoginUserAction = routeAction$((data, { cookie, redirect }) => {
+	const { email, password } = data;
+
+	if (email === 'test@test.com' && password === '123456') {
+		cookie.set('jwt', 'secret_token', { secure: true, path: '/' });
+		redirect(302, '/');
+
+		return {
+			success: true,
+			jwt: 'jwt_secret',
+		};
+	}
+
+	return {
+		success: false,
+	};
+});
 
 export default component$(() => {
 	useStylesScoped$(styles);
 
-	const formState = useStore({
-		email: '',
-		password: '',
-		formPosted: false,
-	});
-
-	const emailError = useComputed$(() => {
-		if (formState.email.includes('@')) return '';
-		return 'not-valid';
-	});
-
-	const passwordError = useComputed$(() => {
-		if (formState.password.length >= 6) return '';
-		return 'not-valid';
-	});
-
-	const isFormValid = useComputed$(() => {
-		if (emailError.value === 'not-valid' || passwordError.value == 'not-valid') return false;
-
-		return true;
-	});
-
-	const onSubmit = $(() => {
-		formState.formPosted = true;
-		const { email, password } = formState;
-
-		console.log(isFormValid.value);
-		console.log({ email, password });
-	});
+	const action = useLoginUserAction();
 
 	return (
-		<form
-			class='login-form'
-			onSubmit$={onSubmit}
-			preventdefault:submit
+		<Form
+			action={action}
+			class='login-form mt-5'
 		>
 			<div class='relative'>
 				<input
-					onInput$={(event) => (formState.email = (event.target as HTMLInputElement).value)}
-					value={formState.email}
 					name='email'
 					type='text'
 					placeholder='Email address'
-					class={formState.formPosted ? emailError.value : ''}
 				/>
 				<label for='email'>Email Address</label>
 			</div>
 			<div class='relative'>
 				<input
-					onInput$={(event) => (formState.password = (event.target as HTMLInputElement).value)}
-					value={formState.password}
 					name='password'
 					type='password'
 					placeholder='Password'
-					class={formState.formPosted ? passwordError.value : ''}
 				/>
 				<label for='password'>Password</label>
 			</div>
 			<div class='relative'>
-				<button
-					type='submit'
-					disabled={!isFormValid.value}
-				>
-					Ingresar
-				</button>
+				<button type='submit'>Ingresar</button>
 			</div>
 
-			<code>{JSON.stringify(formState, undefined, 2)}</code>
-		</form>
+			<p>{action.value?.success && <code>Token: {action.value.jwt}</code>}</p>
+
+			<code>{JSON.stringify(action.value, undefined, 2)}</code>
+		</Form>
 	);
 });
